@@ -13,8 +13,6 @@ import (
 	"syscall"
 )
 
-const prog = "imphead"
-
 func main() {
 	var n int
 	flag.Usage = func() {
@@ -93,7 +91,7 @@ func isNormalExitOrInterrupt(errFromWait error) bool {
 }
 
 func die(vs ...interface{}) {
-	msg := prog
+	msg := os.Args[0]
 	for _, v := range vs {
 		msg += ": " + fmt.Sprintf("%v", v)
 	}
