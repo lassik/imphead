@@ -55,16 +55,21 @@ func main() {
 			break
 		}
 	}
-	processGroupID, err := syscall.Getpgid(subCmd.Process.Pid)
-	if err == nil {
-		err = syscall.Kill(-processGroupID, syscall.SIGINT)
-		if err != nil {
-			die("cannot interrupt process group", err)
-		}
-	}
+	interruptProcessGroupIfStillRunning(subCmd.Process)
 	err = subCmd.Wait()
 	if !isNormalExitOrInterrupt(err) {
 		die(err)
+	}
+}
+
+func interruptProcessGroupIfStillRunning(process *os.Process) {
+	processGroupID, err := syscall.Getpgid(process.Pid)
+	if err != nil {
+		return
+	}
+	err = syscall.Kill(-processGroupID, syscall.SIGINT)
+	if err != nil {
+		die("cannot interrupt process group", err)
 	}
 }
 
