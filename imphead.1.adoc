@@ -1,0 +1,59 @@
+IMPHEAD(1)
+==========
+:doctype: manpage
+
+NAME
+----
+
+imphead - show some output from command then kill it
+
+SYNOPSIS
+--------
+
+*imphead* [-n _lines_] _command_ [_argument_ ...]
+
+DESCRIPTION
+-----------
+
+The *imphead* utility is an impatient version of the head(1) utility.
+It runs _command_, shows at most -n _lines_ of its output, then
+interrupts it. The default is 10 lines.
+
+This is a convenient way to limit searching and filtering commands
+when you only need a few matches or a general idea of the results.
+Instead of carefully planning just the right query you can rapidly
+bash things into *imphead* until you get what you want.
+
+SCRIPTING
+---------
+
+The *imphead* utility is not designed for reliable use in shell
+scripts.
+
+EXAMPLES
+--------
+
+Show some C files in the current directory:
+
+    imphead find . -type f -name "*.c"
+
+Show some files inside a compressed archive:
+
+    imphead tar -tf gcl-2.6.7.tar.gz
+
+Show some C files inside a compressed archive:
+
+    imphead sh -c "tar -tf linux-2.6.28.2.tar.bz2 | grep '\.c$'"
+
+Show the cover page of an internet RFC:
+
+    imphead -n 50 curl -s https://www.ietf.org/rfc/rfc2822.txt
+
+Show some uses of an identifier in source code:
+
+    imphead grep -Rin compile-file .
+
+SEE ALSO
+--------
+
+head(1), less(1), more(1), kill(1), killall(1), pkill(1)

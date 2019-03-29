@@ -1,0 +1,10 @@
+# imphead -- impatient head(1)
+
+The imphead utility is an impatient version of the Unix head(1)
+utility. It runs a command, shows at most _n_ lines of its output,
+then interrupts it.
+
+This is a convenient way to limit searching and filtering commands
+when you only need a few matches or a general idea of the results.
+Instead of carefully planning just the right query you can rapidly
+bash things into imphead until you get what you want.
