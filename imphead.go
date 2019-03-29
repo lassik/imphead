@@ -55,6 +55,12 @@ func main() {
 			break
 		}
 	}
+	// Most of the time it would be enough just to interrupt the
+	// process itself. But it's often useful to run an entire
+	// shell pipeline inside imphead. If we just interrupt the
+	// shell then the subprocesses in the pipeline will be left
+	// hanging. Interrupting the shell's entire process group
+	// makes sure we stop them all.
 	interruptProcessGroupIfStillRunning(subCmd.Process)
 	err = subCmd.Wait()
 	if !isNormalExitOrInterrupt(err) {
