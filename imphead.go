@@ -31,7 +31,6 @@ func main() {
 		os.Exit(2)
 	}
 	subCmd := exec.Command(subArgs[0], subArgs[1:]...)
-	//subCmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	subCmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
 	subCmd.Stdin = os.Stdin
 	subCmd.Stderr = os.Stderr
